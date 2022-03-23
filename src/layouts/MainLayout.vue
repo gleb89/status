@@ -1,6 +1,20 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header reveal class="bg-white text-black">
+    <q-header v-if="OnRoute" reveal class="bg-white text-black">
+      <q-toolbar>
+
+       <q-icon @click="$router.go(-1)" size="23px"  name="farrow_back" />
+        <div style="width: 100%" class="text-center">
+          <img
+            class="q-mr-md"
+            alt="logo"
+            src="images/logo.svg"
+            style="width: 33px; height: 33px"
+          />
+        </div>
+      </q-toolbar>
+    </q-header>
+    <q-header v-else reveal class="bg-white text-black">
       <q-toolbar>
         <q-avatar size="23px" @click="toggleLeftDrawer">
           <img
@@ -104,7 +118,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 export default {
   setup() {
@@ -112,8 +126,16 @@ export default {
     const tab = ref("home");
     const router = useRouter();
     const route = useRoute();
+    const OnRoute = computed(() =>
+     route.path.includes('comments') || route.path.includes('status')
+     );
+    const listRoutePath = ref(['/comments'])
     return {
+      route,
+      OnRoute,
+      router,
       tab,
+      listRoutePath,
       leftDrawerOpen,
       onPage(url) {
         router.push({ path: url });
