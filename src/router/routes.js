@@ -17,6 +17,9 @@ const routes = [
 
       { path: '/comments/:status_id', component: () => import('pages/comments.vue') },
       { path: '/status/:status_id', component: () => import('pages/status.vue') },
+
+      { path: '/readable', component: () => import('pages/readable.vue') },
+      { path: '/readers', component: () => import('pages/readers.vue') },
     ]
   },
 
