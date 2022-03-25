@@ -29,7 +29,9 @@ module.exports = configure(function (ctx) {
 
       'axios',
     ],
-
+    bin: {
+      linuxAndroidStudio: '/snap/android-studio/current/android-studio/bin/studio.sh',
+    },
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-css
     css: [
       'app.scss'

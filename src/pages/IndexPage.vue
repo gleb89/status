@@ -5,7 +5,9 @@
       enter-active-class="animated fadeIn slow"
       leave-active-class="animated fadeOut slow"
     >
+
       <div v-for="(qweet, index) in qweets" :key="index">
+
         <StatusCard :qweet="qweet" :index="index" :OnLike="OnLike" :deleteQweet="deleteQweet" />
       </div>
     </transition-group>

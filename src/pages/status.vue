@@ -1,34 +1,101 @@
 <template>
+  <q-page padding class="relative-position">
+    <q-item clickable v-ripple class="qweet q-py-md">
 
-      <q-page padding class="relative-position">
+
+      <q-item-section>
+        <q-item-label class="text-subtitle1">
+          <q-avatar size="md">
+            <img
+              src="https://s.gravatar.com/avatar/ce7f3697e231df38b3ca6065848520da?s=80"
+            />
+          </q-avatar>
+          <strong>
+            <span> Danny Connell </span>
+            <br />
+            <span class="text-grey-5 q-ml-lg"> @danny__connell </span>
+          </strong>
+        </q-item-label>
+        <q-item-label  @click="OnPAge('/status/'+qweet.id)" class="qweet-content text-body1 q-pt-md">{{
+          qweet.content
+        }}</q-item-label>
+        <span class="text-grey-7  q-mt-md">
+          &bull; 12.11.2022
+        </span>
+
+        <div class="qweet-icons row justify-between q-mt-sm">
+          <q-btn @click="OnPAge('/comments/' + 1)" color="grey" icon="chat_bubble_outline" size="sm" flat round >66
+
+    </q-btn>
+          <q-btn color="grey" icon="keyboard_return" size="sm" flat round >13
+
+    </q-btn>
+          <q-btn
+          @click="OnLike(index)"
+            :color="qweet.liked ? 'pink' : 'grey'"
+            :icon="qweet.liked ? 'favorite_border' : 'favorite_border'"
+            size="sm"
+            flat
+
+            round
+          >
+        45
+
+    </q-btn>
+
+        </div>
+      </q-item-section>
+    </q-item>
+     <q-separator />
+     <section id="comments">
+       <h6 class="q-ml-md">Комментарии (76)</h6>
     <transition-group
       appear
       enter-active-class="animated fadeIn slow"
       leave-active-class="animated fadeOut slow"
     >
-Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga consequuntur iusto amet necessitatibus excepturi, expedita labore officiis perspiciatis dicta nobis minima eaque eligendi voluptas dolorem possimus facilis? Similique, incidunt id!
-Necessitatibus, ex? Consectetur hic temporibus voluptate magnam quasi nulla sint praesentium. Commodi dolorem, amet magnam vitae perferendis illo eum esse incidunt. Earum quod eligendi error amet voluptatibus autem beatae reprehenderit.
-Minima cum obcaecati facilis dignissimos optio beatae ut, laborum natus, itaque quod repudiandae perspiciatis nesciunt! Adipisci reiciendis tempora non, tenetur ut accusamus delectus suscipit, possimus deserunt vel atque illum natus.
-Corrupti odit distinctio voluptate modi impedit maxime officiis eveniet ullam, saepe repudiandae natus iusto doloremque? Doloribus explicabo placeat minus aliquid dolorum nam quas, ducimus modi quae. Quaerat nobis sed tenetur.
-Repellendus recusandae nam quaerat, amet earum, quia consectetur velit explicabo nesciunt iure tempore numquam saepe expedita, aperiam vero optio eum reprehenderit delectus repellat ut vitae. Iste, excepturi tenetur. Veritatis, rerum.
-Ratione repellat quidem rem magnam velit dolorum iusto veritatis molestias a voluptatibus ducimus natus vel sunt non animi repudiandae perferendis, tempora, unde reprehenderit voluptate atque quas aliquam fugit! Id, beatae.
-Asperiores consequuntur deleniti dolores qui laborum laudantium eos, officia, accusantium ut atque porro eius ipsa ipsum? Sint doloribus alias ex optio quasi. Aperiam eveniet fugiat nemo voluptatem unde explicabo ipsam!
-Numquam placeat blanditiis architecto libero totam ipsam facilis fuga autem earum illo accusamus perferendis doloremque culpa dicta nulla consequatur explicabo eos temporibus voluptatem, quaerat quos enim. Quas facilis voluptatibus temporibus?
-Accusamus iusto dolor officia odit deleniti, commodi iste blanditiis? Error accusantium illo obcaecati? Mollitia velit atque, pariatur, consequatur modi sapiente deleniti molestias corrupti reiciendis enim accusantium eligendi autem quasi inventore!
-Explicabo autem facere repudiandae accusamus eligendi doloribus tempore at recusandae ipsa vel architecto libero, in adipisci non unde. Nemo veritatis doloribus natus tempora culpa, dolorum debitis laboriosam voluptatibus temporibus repellendus?
-</transition-group>
+
+      <div v-for="(i, index) in 10" :key="index">
+
+<CommentsList/>
+      </div>
+    </transition-group>
+     </section>
   </q-page>
 </template>
 
 <script>
-
+import { ref } from "vue";
+import CommentsList from "components/CommentsList.vue";
+import { useRouter, useRoute } from "vue-router";
 export default {
-name:"StatusPage",
-components:{
-
+  name: "StatusPage",
+  components: {
+    CommentsList
   },
-  setup() {
+   setup() {
+    const dialog = ref(false)
+     const info = ref(null)
+    const router = useRouter();
+    const route = useRoute();
+    const qweet = ref({
+        id: 1,
+        content:
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled",
+        liked: 1,
+      })
+    return {
+     qweet,
+     OnLike(){
+       if(qweet.value.liked){
+         qweet.value.liked = 0
+       }else{
+         qweet.value.liked = 1
+       }
 
+     }
+
+    };
   },
-}
+};
 </script>
