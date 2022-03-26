@@ -1,5 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
+
     <q-header v-if="OnRoute" reveal class="bg-white text-black">
       <q-toolbar>
         <q-icon @click="$router.go(-1)" size="23px" name="farrow_back" />
@@ -91,6 +92,7 @@
     </q-page-container>
 
     <q-footer
+    v-if="!$route.path.includes('messages_id')"
       style="border-top: 1px solid #00000042"
       class="bg-white text-black fixed-bottom"
     >
@@ -120,22 +122,45 @@
 </template>
 
 <script>
-import { ref, computed } from "vue";
+import { ref, computed,onMounted  } from "vue";
+
+import { useQuasar } from 'quasar'
+
 import { useRouter, useRoute } from "vue-router";
 export default {
+
+  // onMounted(() => {
+  //     Device.getInfo().then(info => {
+  //       model.value = info.model
+  //       manufacturer.value = info.manufacturer
+  //     })
+  //   }),
+
+
   setup() {
     const leftDrawerOpen = ref(false);
     const tab = ref("home");
     const router = useRouter();
     const route = useRoute();
+
+
+    // const Statb = StatusBar
+
     const OnRoute = computed(
       () => route.path.includes("comments") ||
        route.path.includes("status") ||
        route.path.includes("readable") ||
-       route.path.includes("readers")
+       route.path.includes("readers") ||
+       route.path.includes("search") ||
+       route.path.includes("messages_id")
+
     );
     const listRoutePath = ref(["/comments"]);
+    //     onMounted(() => {
+
+    // })
     return {
+
       route,
       OnRoute,
       router,

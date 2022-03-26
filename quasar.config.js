@@ -28,6 +28,7 @@ module.exports = configure(function (ctx) {
     boot: [
 
       'axios',
+      'addressbar-color'
     ],
     bin: {
       linuxAndroidStudio: '/snap/android-studio/current/android-studio/bin/studio.sh',
@@ -98,7 +99,8 @@ module.exports = configure(function (ctx) {
     // https://v2.quasar.dev/quasar-cli-webpack/quasar-config-js#Property%3A-framework
     framework: {
       plugins: [
-        'Notify'
+        'Notify',
+        'AddressbarColor'
       ],
       components: [
         'QPageContainer',
@@ -208,9 +210,12 @@ module.exports = configure(function (ctx) {
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/developing-capacitor-apps/configuring-capacitor
-    capacitor: {
-      hideSplashscreen: true
-    },
+
+      capacitor: {
+        hideSplashscreen: true,
+        iosStatusBarPadding: true
+      },
+
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-webpack/developing-electron-apps/configuring-electron
     electron: {
