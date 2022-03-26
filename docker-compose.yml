@@ -9,17 +9,17 @@ services:
     ports:
       - 3000:3000
 
-  nginx:
-    image: nginx:latest
-    restart: unless-stopped
-    volumes:
-      - ./nginx:/etc/nginx/conf.d
-    depends_on:
-      - quasarapp
+  # nginx:
+  #   image: nginx:latest
+  #   restart: unless-stopped
+  #   volumes:
+  #     - ./nginx:/etc/nginx/conf.d
+  #   depends_on:
+  #     - quasarapp
 
-    # ports:
-    #   - "8000:8000"
-    #   - 3000:3000
+  #   ports:
+  #   #   - "8000:8000"
+  #     - 80:3000
 
 # ssh root@84.38.180.213
 # qy66y67weu
