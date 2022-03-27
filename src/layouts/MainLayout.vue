@@ -1,12 +1,11 @@
 <template>
   <q-layout view="hHh lpR fFf">
-
     <q-header v-if="OnRoute" reveal class="bg-white text-black">
       <q-toolbar>
         <q-icon @click="$router.go(-1)" size="23px" name="farrow_back" />
         <div style="width: 100%" class="text-center">
           <img
-          @click="onPage('/')"
+            @click="onPage('/')"
             class="q-mr-md"
             alt="logo"
             src="images/logo.svg"
@@ -19,13 +18,12 @@
       <q-toolbar>
         <q-avatar size="23px" @click="toggleLeftDrawer">
           <img
-
             src="https://images.ctfassets.net/hrltx12pl8hq/7yQR5uJhwEkRfjwMFJ7bUK/dc52a0913e8ff8b5c276177890eb0129/offset_comp_772626-opt.jpg?fit=fill&w=800&h=300"
           />
         </q-avatar>
         <div style="width: 100%" class="text-center">
           <img
-          @click="onPage('/')"
+            @click="onPage('/')"
             class="q-mr-md"
             alt="logo"
             src="images/logo.svg"
@@ -45,7 +43,9 @@
         </q-avatar>
         <p>@glebhleb89</p>
         <div class="row">
-          <div @click="onPage('/readable')"><span class="text-weight-bold">86</span> читаемых</div>
+          <div @click="onPage('/readable')">
+            <span class="text-weight-bold">86</span> читаемых
+          </div>
           <div @click="onPage('/readers')" class="q-ml-md">
             <span class="text-weight-bold">12</span> читателей
           </div>
@@ -92,7 +92,7 @@
     </q-page-container>
 
     <q-footer
-    v-if="!$route.path.includes('messages_id')"
+      v-if="!$route.path.includes('messages_id')"
       style="border-top: 1px solid #00000042"
       class="bg-white text-black fixed-bottom"
     >
@@ -122,13 +122,12 @@
 </template>
 
 <script>
-import { ref, computed,onMounted  } from "vue";
+import { ref, computed, onMounted } from "vue";
 
-import { useQuasar } from 'quasar'
+import { useQuasar } from "quasar";
 
 import { useRouter, useRoute } from "vue-router";
 export default {
-
   // onMounted(() => {
   //     Device.getInfo().then(info => {
   //       model.value = info.model
@@ -136,31 +135,28 @@ export default {
   //     })
   //   }),
 
-
   setup() {
     const leftDrawerOpen = ref(false);
     const tab = ref("home");
     const router = useRouter();
     const route = useRoute();
 
-
     // const Statb = StatusBar
 
     const OnRoute = computed(
-      () => route.path.includes("comments") ||
-       route.path.includes("status") ||
-       route.path.includes("readable") ||
-       route.path.includes("readers") ||
-       route.path.includes("search") ||
-       route.path.includes("messages_id")
-
+      () =>
+        route.path.includes("comments") ||
+        route.path.includes("status") ||
+        route.path.includes("readable") ||
+        route.path.includes("readers") ||
+        route.path.includes("search") ||
+        route.path.includes("messages_id")
     );
     const listRoutePath = ref(["/comments"]);
     //     onMounted(() => {
 
     // })
     return {
-
       route,
       OnRoute,
       router,
