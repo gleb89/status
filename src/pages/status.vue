@@ -1,101 +1,60 @@
 <template>
   <q-page padding class="relative-position">
-    <q-item clickable v-ripple class="qweet q-py-md">
+    <StatusCard
+      :qweet="qweet"
+      :index="index"
+      :OnLike="OnLikeStatus"
+      :deleteQweet="deleteQweet"
+    />
 
-
-      <q-item-section>
-        <q-item-label class="text-subtitle1">
-          <q-avatar size="md">
-            <img
-              src="https://s.gravatar.com/avatar/ce7f3697e231df38b3ca6065848520da?s=80"
-            />
-          </q-avatar>
-          <strong>
-            <span> Danny Connell </span>
-            <br />
-            <span class="text-grey-5 q-ml-lg"> @danny__connell </span>
-          </strong>
-        </q-item-label>
-        <q-item-label  @click="OnPAge('/status/'+qweet.id)" class="qweet-content text-body1 q-pt-md">{{
-          qweet.content
-        }}</q-item-label>
-        <span class="text-grey-7  q-mt-md">
-          &bull; 12.11.2022
-        </span>
-
-        <div class="qweet-icons row justify-between q-mt-sm">
-          <q-btn @click="OnPAge('/comments/' + 1)" color="grey" icon="chat_bubble_outline" size="sm" flat round >66
-
-    </q-btn>
-          <q-btn color="grey" icon="keyboard_return" size="sm" flat round >13
-
-    </q-btn>
-          <q-btn
-          @click="OnLike(index)"
-            :color="qweet.liked ? 'pink' : 'grey'"
-            :icon="qweet.liked ? 'favorite_border' : 'favorite_border'"
-            size="sm"
-            flat
-
-            round
-          >
-        45
-
-    </q-btn>
-
+    <q-separator />
+    <section id="comments">
+      <h6 class="q-ml-md">Комментарии (76)</h6>
+      <transition-group
+        appear
+        enter-active-class="animated fadeIn slow"
+        leave-active-class="animated fadeOut slow"
+      >
+        <div v-for="(comment, index) in comments.results" :key="index">
+          <CommentsList :comment="comment" :OnLike="OnLikeComments" :index="index" />
         </div>
-      </q-item-section>
-    </q-item>
-     <q-separator />
-     <section id="comments">
-       <h6 class="q-ml-md">Комментарии (76)</h6>
-    <transition-group
-      appear
-      enter-active-class="animated fadeIn slow"
-      leave-active-class="animated fadeOut slow"
-    >
-
-      <div v-for="(i, index) in 10" :key="index">
-
-<CommentsList/>
-      </div>
-    </transition-group>
-     </section>
+      </transition-group>
+    </section>
   </q-page>
 </template>
 
-<script>
-import { ref } from "vue";
+<script setup>
 import CommentsList from "components/CommentsList.vue";
+import StatusCard from "components/StatusCard.vue";
+import { ref, onMounted } from "vue";
+import { GetOneStatus } from "../use/Fetchtstatus";
+import { GetListComments } from "../use/Fetchcomments";
 import { useRouter, useRoute } from "vue-router";
-export default {
-  name: "StatusPage",
-  components: {
-    CommentsList
-  },
-   setup() {
-    const dialog = ref(false)
-     const info = ref(null)
-    const router = useRouter();
-    const route = useRoute();
-    const qweet = ref({
-        id: 1,
-        content:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled",
-        liked: 1,
-      })
-    return {
-     qweet,
-     OnLike(){
-       if(qweet.value.liked){
-         qweet.value.liked = 0
-       }else{
-         qweet.value.liked = 1
-       }
-
-     }
-
-    };
-  },
+const qweet = ref({});
+const comments = ref([]);
+const router = useRouter();
+const route = useRoute();
+const OnLikeStatus = async (pk) => {
+  if (qweet.value.likes) {
+    qweet.value.likes = 0;
+  } else {
+    qweet.value.likes = 1;
+  }
 };
+
+const OnLikeComments = async (ind) => {
+  if (comments.value.results[ind].likes) {
+    comments.value.results[ind].likes = 0;
+  } else {
+    comments.value.results[ind].likes = 1;
+  }
+};
+onMounted(async () => {
+  const response_status = await GetOneStatus(route.params.status_id);
+  qweet.value = response_status.status;
+  const response_comments = await GetListComments(route.params.status_id);
+  comments.value = response_comments.commenstList;
+});
 </script>
+
+

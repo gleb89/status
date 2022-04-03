@@ -4,22 +4,24 @@
       <q-item-section>
         <q-item-label class="text-subtitle1">
           <q-avatar size="md">
+            <img v-if="qweet.user_avatar" :src="qweet.user_avatar" alt="none" />
             <img
+              v-else
               src="https://s.gravatar.com/avatar/ce7f3697e231df38b3ca6065848520da?s=80"
             />
           </q-avatar>
           <strong>
-            <span> Danny Connell </span>
+            <span> {{qweet.user_first_name}} {{qweet.user_last_name}} </span>
             <br />
-            <span class="text-grey-5 q-ml-lg"> @danny__connell </span>
+            <span class="text-grey-5 q-ml-lg">{{qweet.user_nicname}} </span>
           </strong>
         </q-item-label>
         <q-item-label
           @click="OnPAge('/status/' + qweet.id)"
           class="qweet-content text-body1 q-pt-md"
-          >{{ qweet.content }}</q-item-label
+          >{{ qweet.descriptions }}</q-item-label
         >
-        <span class="text-grey-7 q-mt-md"> &bull; 12.11.2022 </span>
+        <span class="text-grey-7 q-mt-md"> &bull; {{convertFromStringToDate(qweet.updated)}} </span>
 
         <div class="qweet-icons row justify-between q-mt-sm">
           <q-btn
@@ -29,20 +31,20 @@
             size="sm"
             flat
             round
-            >66
+            >{{qweet.comments}}
           </q-btn>
           <q-btn color="grey" icon="keyboard_return" size="sm" flat round
             >13
           </q-btn>
           <q-btn
-            @click="OnLike(index)"
-            :color="qweet.liked ? 'pink' : 'grey'"
-            :icon="qweet.liked ? 'favorite_border' : 'favorite_border'"
+            @click="OnLike(index,)"
+            :color="qweet.likes ? 'pink' : 'grey'"
+            :icon="qweet.likes ? 'favorite_border' : 'favorite_border'"
             size="sm"
             flat
             round
           >
-            45
+            {{qweet.likes}}
           </q-btn>
           <!-- <q-btn @click="deleteQweet(index)" color="grey" icon="delete_outline" size="sm" flat round /> -->
         </div>
@@ -57,6 +59,7 @@ import { defineComponent } from "vue";
 
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import { date } from 'quasar'
 export default defineComponent({
   props: ["index", "qweet", "OnLike", "deleteQweet"],
   name: "StatusCard",
@@ -70,6 +73,14 @@ export default defineComponent({
       info,
       dialog,
       maximizedToggle: ref(true),
+    convertFromStringToDate(responseDate) {
+      if (responseDate) {
+
+        return  new Date(responseDate).toLocaleString("ru");
+      } else {
+        return "";
+      }
+    },
       OnPAge(url) {
         router.push({ path: url });
       },

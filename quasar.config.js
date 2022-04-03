@@ -30,6 +30,7 @@ module.exports = configure(function (ctx) {
       'axios',
       'addressbar-color'
     ],
+
     bin: {
       linuxAndroidStudio: '/snap/android-studio/current/android-studio/bin/studio.sh',
     },
