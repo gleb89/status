@@ -1,5 +1,6 @@
 <template>
   <q-item clickable v-ripple class="qweet q-py-md">
+
     <q-item-section avatar top>
       <q-avatar size="md">
   <img v-if="comment.user_avatar" :src="comment.user_avatar" alt="none" />
@@ -39,7 +40,7 @@
           >
             {{comment.likes}}
           </q-btn>
-        <!-- <q-btn @click="deleteQweet(index)" color="grey" icon="delete_outline" size="sm" flat round /> -->
+       <q-btn @click="deleteQweet(index)" color="grey" icon="delete_outline" size="sm" flat round />
       </div>
     </q-item-section>
   </q-item>
@@ -49,22 +50,21 @@
 <script>
 import { useRouter, useRoute } from "vue-router";
 export default {
-  props:['comment','index','OnLike'],
+  props: ["comment", "index", "OnLike"],
   setup() {
-        const router = useRouter();
+    const router = useRouter();
     const route = useRoute();
     return {
-        convertFromStringToDate(responseDate) {
-      if (responseDate) {
-
-        return  new Date(responseDate).toLocaleString("ru");
-      } else {
-        return "";
-      }
-    },
-      OnPAge(url){
+      convertFromStringToDate(responseDate) {
+        if (responseDate) {
+          return new Date(responseDate).toLocaleString("ru");
+        } else {
+          return "";
+        }
+      },
+      OnPAge(url) {
         router.push({ path: url });
-      }
+      },
     };
   },
 };

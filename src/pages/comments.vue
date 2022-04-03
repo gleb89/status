@@ -1,13 +1,14 @@
 <template>
 
       <q-page class="relative-position">
-    <transition-group
+        123
+    <!-- <transition-group
       appear
       enter-active-class="animated fadeIn slow"
       leave-active-class="animated fadeOut slow"
     >
 <CommentsList/>
-</transition-group>
+</transition-group> -->
   </q-page>
 </template>
 
@@ -16,7 +17,7 @@ import CommentsList from "components/CommentsList.vue";
 export default {
 name:"ComentsPage",
 components:{
-    CommentsList
+    // CommentsList
   },
   setup() {
 

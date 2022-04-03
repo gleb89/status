@@ -1,13 +1,7 @@
 <template>
 
       <q-page class="relative-position">
-    <transition-group
-      appear
-      enter-active-class="animated fadeIn slow"
-      leave-active-class="animated fadeOut slow"
-    >
- <CommentsList :comment="comment" :OnLike="OnLikeComments" :index="1" />
-</transition-group>
+ghghgh
   </q-page>
 </template>
 
@@ -28,8 +22,8 @@ const OnLikeComments = async (pk) => {
 };
 
 
-onMounted(async () => {
-  const response_comment = await GetOneComment(route.params.comment_id);
-  comment.value = response_comment.comment;
-});
+// onMounted(async () => {
+//   const response_comment = await GetOneComment(route.params.comment_id);
+//   // comment.value = response_comment.comment;
+// });
 </script>

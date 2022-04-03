@@ -12,7 +12,7 @@ async function GetOneComment(pk) {
 
   const comment = await api.get(`api/comments/retrieve/${pk}`)
 
-
+console.log(comment);
   return { comment: comment.data }
 }
 
